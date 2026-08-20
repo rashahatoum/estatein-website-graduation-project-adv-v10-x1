@@ -14,3 +14,14 @@ export interface FooterBottomData {
   legalLinks: string;
   socialIcons: string[];
 }
+
+/**
+ * Generic content shape for a page section header
+ * (title + description + optional CTA button label).
+ * Reused by any slider-based section (FAQs, Properties, Testimonials...).
+ */
+export interface SectionHeaderData {
+  title: string;
+  description: string;
+  buttonContent: string;
+}
