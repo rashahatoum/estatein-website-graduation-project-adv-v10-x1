@@ -6,33 +6,6 @@ import FaqCard from "../FaqCard";
 import Loading from "../Loading";
 import Error from "../Error";
 import Container from "../Container";
-
-/**
- * FaqSection
- * ----------
- * Home-page "Frequently Asked Questions" section.
- *
- * Data flow:
- *  Firestore ("faqs" collection)
- *    -> DataListener (onSnapshot, realtime)
- *    -> redux/slices/faqSlice (items/loading/error)
- *    -> this component (useSelector)
- *
- * No direct Firebase calls happen here — the section is a pure
- * consumer of the `faqs` slice, keeping data-fetching and UI decoupled.
- *
- * Layout/responsiveness is fully delegated to the existing
- * <SliderSection /> + <Slider /> components (1 card mobile /
- * 2 cards tablet / 3 cards desktop), so this component only
- * supplies the header copy and the list of <FaqCard /> children —
- * the same way <OurValues /> keeps its header text inline.
- *
- * The outer div supplies a real, visible side gutter matching
- * <Navbar />'s own px-80 / max-[992px]:px-16 convention, because
- * <Container />'s built-in px-3/sm:px-4/md:px-6 resolves to only
- * 3px/4px/6px under this project's `--spacing: 1px` theme override
- * (see src/index.css) and is not visibly noticeable on its own.
- */
 const FaqSection = () => {
   const { items: faqs, loading, error } = useSelector(
     (state: RootState) => state.faqs
@@ -61,10 +34,10 @@ const FaqSection = () => {
           mobileCards={1}
           showButton
           buttonContent="View All FAQ's"
-          buttonClassName="h-50 rounded-lg border border-grey-15 bg-grey-08 px-20 text-white transition-colors hover:bg-grey-15 cursor-pointer whitespace-nowrap"
+          buttonClassName="rounded-lg border border-grey-15 bg-grey-08 px-20 text-white transition-colors hover:bg-grey-15 cursor-pointer whitespace-nowrap"
         >
           {faqs.map((faq) => (
-            <FaqCard key={faq.id} faq={faq} />
+            <FaqCard id={faq.id} question={faq.question} answer={faq.answer}/>
           ))}
         </SliderSection>
       </Container>
