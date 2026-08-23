@@ -1,7 +1,4 @@
-
 import type { ValueItem } from '../types/ValueCards';
-
-
 export const ValueCard = ({ title, description, icon }: ValueItem) => {
   return (
     <div className="flex flex-col gap-3.5 p-6 xl:p-30 h-full justify-start">
@@ -13,7 +10,6 @@ export const ValueCard = ({ title, description, icon }: ValueItem) => {
           {title}
         </h3>
       </div>
-
       <p className="text-grey-60 text-16">
         {description}
       </p>

@@ -10,8 +10,13 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import Login from './pages/Login';
+import DashboardLayout from './pages/DashboardLayout';
+import DataListener from './components/DataListener';
+import FaqsTable from './components/dashboard/FaqsTable';
+import TestimonialsTable from './components/dashboard/TestimonialsTable';
+import PropertiesTable from './components/dashboard/PropertiesTable';
 
 
 export const router = createBrowserRouter([
@@ -46,8 +51,30 @@ export const router = createBrowserRouter([
     ]
   },
   {
-    path: "dashboard",
-    element: <Dashboard/>, 
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="properties" replace />,
+      },
+      {
+        path: "properties",
+        element:<PropertiesTable />,
+      },
+      {
+        path: "faqs",
+        element: <FaqsTable />,
+      },
+      {
+        path: "testimonials",
+        element: <TestimonialsTable />,
+      },
+    ],
   }
 ],
 );
@@ -55,7 +82,8 @@ export const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-    <RouterProvider router={router} />
+      <DataListener />
+      <RouterProvider router={router} />
     </Provider>
   </StrictMode>,
 )

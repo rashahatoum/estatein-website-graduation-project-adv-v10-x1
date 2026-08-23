@@ -1,9 +1,9 @@
+
 import { AiOutlineThunderbolt } from 'react-icons/ai'
 import { BsGrid } from 'react-icons/bs'
 import { ClientQuoteCard } from './ClientQuoteCard'
 import type { ClientItem } from '../types/clientType'
 import Button from './AtomComponents/Button'
-
 const ValuedClientCard = ({
   establishedYear,
   companyName,
