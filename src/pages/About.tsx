@@ -1,10 +1,7 @@
-<<<<<<< Updated upstream
 
-const About = () => {
-    return (
-        <div>About</div>
-=======
 import AboutHero from "../components/Hero/AboutHero"
+import OurValuedClients from "../components/sections/OurValuedClients";
+import OurValues from "../components/sections/OurValues";
 
 const About = () => {
     return (
@@ -13,11 +10,13 @@ const About = () => {
                 title={"Our Journey"}
                 description={"Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary. Over the years, we've expanded our reach, forged valuable partnerships, and gained the trust of countless clients."}
                 img={"/assets/imgs/heros/AboutHeroImage.webp"} />
-            <main className="min-height-screen">
+                <main className="min-height-screen">
+                <OurValues />
+                <OurValuedClients />
             </main>
         </div>
->>>>>>> Stashed changes
     )
 }
 
-export default About
+
+export default About;
