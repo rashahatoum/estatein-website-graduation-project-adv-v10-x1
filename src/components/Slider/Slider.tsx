@@ -64,7 +64,7 @@ export default function Slider({
         <div className=" flex gap-(--gap) transition-transform duration-500 ease-in-out w-max pt-6 pb-6 -translate-x-(--tx) " style={trackStyle} >
           {children.map((child, index) => (
             <StaggerItem key={index}>
-              <div className="shrink-0" style={cardStyle}>
+              <div className="shrink-0 h-full" style={cardStyle}>
                 {child}
               </div>
             </StaggerItem>
