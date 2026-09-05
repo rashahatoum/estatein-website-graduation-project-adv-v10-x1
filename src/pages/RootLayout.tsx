@@ -6,6 +6,7 @@ import CTA from '../components/CTA'
 import { useState } from 'react'
 import WelcomeScreen from '../components/WelcomeScreen'
 import ScrollToTop from "../components/AtomComponents/ScrollToTop";
+import { ScrollRestoration } from "react-router-dom";
 
 const RootLayout = () => {
 
@@ -28,7 +29,7 @@ const RootLayout = () => {
                 <Banner />
                 <Navbar />
             </div>
-
+            <ScrollRestoration />
             <Outlet />
             <CTA />
             <Footer />
