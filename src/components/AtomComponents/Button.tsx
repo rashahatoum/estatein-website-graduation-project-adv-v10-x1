@@ -20,9 +20,9 @@ const Button = ({
 }: ButtonProps) => {
   const baseClassName = `
     py-14 px-20
-    lg:py-18 lg:px-24 max-[363px]:px-2
+    lg:py-18 lg:px-24 max-[390px]:px-2
     rounded-lg lg:rounded-xl
-    cursor-pointer max-[363px]:text-xs 
+    cursor-pointer max-[390px]:text-xs 
     ${className ?? ""} `;
     
   if (href) {
@@ -41,7 +41,7 @@ const Button = ({
   }
 
   return (
-    <button className={`py-14 px-20 lg:py-18 lg:px-24 max-[363px]:text-xs max-[363px]:px-10  rounded-lg lg:rounded-xl cursor-pointer ${className}`} onClick={onClick}>
+    <button className={`py-14 px-20 lg:py-18 lg:px-24 max-[390px]:text-xs max-[390px]:px-10  rounded-lg lg:rounded-xl cursor-pointer ${className}`} onClick={onClick}>
       {icon}
       {content}
     </button>
