@@ -106,17 +106,19 @@ function SliderSection({
         </Slider>
       )}
 
-      {!showAll && (
-        <div className="border-t border-grey-15 light:border-white-90 flex items-center justify-between gap-4 pt-16">
-          <div className="hidden md:block text-grey-60 light:text-grey-40 text-base 2xl:text-xl font-medium px-1">
-            <span className="text-white light:text-grey-08">{formattedCurrent}</span>{" "} of{" "}{formattedTotal} </div>
-          <div
-            className={showButton ? "flex items-center gap-3 w-full md:w-auto justify-between md:justify-end"
-              : "flex items-center w-full md:w-auto"}  >
-            {showButton && (
-              <div className="block md:hidden">{actionButton} </div>
-            )}
+      <div className="border-t border-grey-15 light:border-white-90 flex items-center justify-between gap-4 pt-16">
 
+        {!showAll && (
+          <div className="hidden md:block text-grey-60 light:text-grey-40 text-base 2xl:text-xl font-medium px-1">
+            <span className="text-white light:text-grey-08"> {formattedCurrent} </span>{" "} of{" "} {formattedTotal}</div>
+        )}
+        <div className={ showButton? "flex items-center gap-3 w-full md:w-auto justify-between md:justify-end"
+                                      : "flex items-center w-full md:w-auto"}>
+          {showButton && (
+            <div className="block md:hidden">{actionButton}  </div>
+          )}
+
+          {!showAll && (
             <SliderControls
               canPrev={canPrev}
               canNext={canNext}
@@ -127,9 +129,9 @@ function SliderSection({
               showNumberBetween
               fullWidth={!showButton}
             />
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
 }
