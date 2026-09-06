@@ -1,75 +1,119 @@
-# React + TypeScript + Vite
+# Estatein Real Estate Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Estatein is a responsive real estate web application built as a graduation project. It allows visitors to explore and filter property listings, view property details, learn about real estate services, and submit inquiries. It also includes a dashboard for managing properties, FAQs, and testimonials.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Responsive public pages: Home, About, Properties, Property Details, Services, and Contact.
+- Property search and filtering by location, type, price, area, and build year.
+- Detailed property pages with image galleries, features, pricing, and inquiry forms.
+- Dashboard CRUD operations for properties, FAQs, and testimonials.
+- Real-time Firestore synchronization using `onSnapshot`.
+- Light and dark themes with the selected theme stored locally.
+- Reusable forms, inputs, cards, sliders, loading states, and responsive layouts.
+- Property image management using local asset paths or HTTPS URLs.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** and **TypeScript**
+- **Vite**
+- **Tailwind CSS 4**
+- **Redux Toolkit** and **React Redux**
+- **React Router**
+- **Firebase Firestore**
+- **Framer Motion**
+- **React Icons**
 
-## Expanding the ESLint configuration
+## Architecture
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Firestore is the main data source. Real-time listeners keep the Redux store and the interface synchronized.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+Firestore
+  -> onSnapshot listeners
+  -> DataListener
+  -> Redux Store
+  -> UI
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Dashboard write operations follow a reusable data layer:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+Dashboard UI
+  -> Redux Async Thunk
+  -> Entity API
+  -> Firebase API
+  -> Firestore
+  -> onSnapshot
+  -> Redux Store
+  -> UI
 ```
+
+Redux arrays are not updated manually after create, update, or delete operations because Firestore listeners provide the latest data.
+
+## Project Structure
+
+```text
+src/
+  components/   Reusable UI, sections, forms, and dashboard components
+  config/       Firebase configuration
+  data/         Shared Firestore and entity API functions
+  pages/        Public pages and dashboard layouts
+  redux/        Store, slices, filters, and async thunks
+  types/        Shared TypeScript types
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+- A Firebase project with Firestore enabled
+
+### Installation
+
+```bash
+git clone https://github.com/rashahatoum/estatein-website-graduation-project-adv-v10-x1.git Estatein-Website
+cd Estatein-Website
+npm ci
+```
+
+Create a `.env` file in the project root and provide your Firebase web configuration:
+
+```env
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+```
+
+Firebase web configuration identifies the Firebase project and is exposed to the client application. Protect Firestore data with appropriate Security Rules, and never store service account credentials or private server keys in Vite environment variables.
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+## Available Scripts
+
+```bash
+npm run dev       # Start the development server
+npm run build     # Type-check and build for production
+npm run lint      # Run ESLint
+npm run preview   # Preview the production build locally
+```
+
+## Important Notes
+
+- Firebase Firestore acts as the project's backend service; there is no separate custom backend.
+- Dashboard access uses a simple session-based educational simulation. It is not production authentication and does not use Firebase Authentication.
+- Firebase Storage is not used. Property images are saved as local `/assets/` paths or HTTPS URLs.
+- Client-side routing is configured for Vercel through `vercel.json`.
+
+## Project Status
+
+This project is under active development as an educational graduation project.
